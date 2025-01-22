@@ -3,7 +3,22 @@ import { Button } from '@/components/ui/button';
 import purple from '../assets/graphics/purple.png';
 import red from '../assets/graphics/red.png';
 import Navbar from '../components/Navbar';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCards, Mousewheel } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
 
+const slides = [
+  { title: "Rock On!", image: "/images/p8.jpeg" },
+  { title: "A Vintage Memory", image: "/images/p1.jpeg" },
+  { title: "Generational Bond", image: "/images/p3.jpeg" },
+  { title: "Convocation", image: "/images/p4.jpeg" },
+  { title: "Road Trip", image: "/images/p5.jpeg" },
+  { title: "Happy Birthday Cooper!",  image: "/images/p7.jpeg" },
+  { title: "Movie Night!", image: "/images/p6.jpeg" },
+  { title: "A Day Out With Friends", image: "/images/p2.jpeg" },
+  { title: "After Work Party", image: "/images/p9.jpeg" },
+];
 
 const Home = () => {
   return (
@@ -45,44 +60,74 @@ const Home = () => {
           </h2>
           <div className="grid grid-cols-1 gap-12 w-full">
             <div className='h-2 w-full border-t-4 border-orange-500'></div>
-            <div
-              className="flex flex-row gap-28 items-center justify-center w-[100%] h-[300px] mx-auto p-5 transition-transform duration-300 "
-
-            >
-              <h2 className="text-4xl font-semibold text-black mb-3 text-start flex justify-start items-start mr-[30%] ml-10" style={{ fontFamily: 'Poppins' }}>
-                <span>Create Your own Treasure Box<br /><span className='text-orange-500'>Or collaborate with your friends</span><br /> with TimeCapsule
+            <div className="flex flex-row gap-16 items-center justify-between w-full h-[400px] mx-auto p-5 transition-transform duration-300">
+              <h2
+                className="text-4xl font-semibold text-black mb-3 text-start flex justify-start items-start ml-10"
+                style={{ fontFamily: 'Poppins' }}
+              >
+                <span>
+                  Create Your own Treasure Box<br />
+                  <span className="text-orange-500">Or collaborate with your friends</span>
+                  <br /> with TimeCapsule
                 </span>
               </h2>
-              <p className="text-black text-center text-sm font-light px-2">
-                Create your personalized capsule to treasure forever.Yet relish whenver you want.
-              </p>
+              <div className="flex justify-center items-center mr-40">
+                <Swiper
+                  className="w-[250px] h-[350px]"
+                  effect="cards"
+                  grabCursor
+                  initialSlide={4}
+                  speed={500}
+                  mousewheel={{ invert: false }}
+                  modules={[EffectCards, Mousewheel]}
+                >
+                  {slides.map((slide, index) => (
+                    <SwiperSlide
+                      key={index}
+                      className="relative shadow-lg rounded-2xl bg-cover bg-center"
+                      style={{
+                        backgroundImage: `linear-gradient(to top, rgba(15,32,39,1), rgba(32,58,67,0), rgba(44,83,100,0)), url(${slide.image})`,
+                      }}
+                    >
+                      <h2 className="absolute left-5 bottom-8 font-bold text-xl text-white">
+                        {slide.title}
+                      </h2>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
             </div>
+
             <div className='h-2 w-full border-t-4 border-orange-500'></div>
             <div
-              className="flex flex-row gap-28 items-center justify-center w-[100%] h-[300px] mx-auto p-5 transition-transform duration-300 "
+              className="flex flex-row gap-28 items-center justify-center w-[100%] h-[300px] mx-auto p-5 px-4 transition-transform duration-300"
 
             >
 
-              <p className="text-black text-center text-sm font-light px-2">
-                Create your personalized capsule to treasure forever.Yet relish whenver you want.
-              </p>
-              <h2 className="text-4xl font-semibold text-black mb-3 text-end flex justify-end items-end ml-[30%] mr-10" style={{ fontFamily: 'Poppins' }}>
+              <img
+                src="/images/goals.avif"
+                alt="Goals"
+                className=" w-[500px] h-[300px] rounded-xl shadow-lg object-cover transition-transform duration-300 hover:scale-105 ml-10"
+              />
+              <h2 className="pr-4 text-4xl text-right font-semibold text-black mb- flex justify-end items-end" style={{ fontFamily: 'Poppins' }}>
                 <span>Chart out your personal goals and<br /><span className='text-orange-500'> make it happen</span><br /> with TimeCapsule
                 </span>
               </h2>
             </div>
             <div className='h-2 w-full border-t-4 border-orange-500'></div>
             <div
-              className="flex flex-row gap-28 items-center justify-center w-[100%] h-[300px] mx-auto p-5 transition-transform duration-300 "
+              className="flex flex-row gap-28 items-center justify-center w-[100%] h-[300px] mx-auto p-16 transition-transform duration-300"
 
             >
               <h2 className="text-4xl font-semibold text-black mb-3 text-start flex justify-start items-start mr-[30%] ml-10" style={{ fontFamily: 'Poppins' }}>
                 <span>Create Your daily<br /><span className='text-orange-500'>To-Do list </span><br /> with TimeCapsule
                 </span>
               </h2>
-              <p className="text-black text-center text-sm font-light px-2">
-                Create your personalized capsule to treasure forever.Yet relish whenver you want.
-              </p>
+              <img
+                src="/images/todo.jpg"
+                alt="Todo"
+                className="pr-6 w-[500px] h-[300px] rounded-xl shadow-lg object-cover transition-transform duration-300 hover:scale-105"
+              />
             </div>
             <div className='h-2 w-full border-t-4 border-orange-500'></div>
 
