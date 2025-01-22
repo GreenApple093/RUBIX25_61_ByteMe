@@ -17,7 +17,7 @@ function Navbar() {
                             <Link to="/treasure" className="text-gray-700 hover:text-gray-900">TREASURE</Link>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <Button className="bg-[#ff5341] hover:bg-[#ff5341]/90">GET STARTED</Button>
+                            <Link to="/signup" className="bg-[#ff5341] hover:bg-[#ff5341]/90">GET STARTED</Link>
                         </div>
                     </div>
                 </div>

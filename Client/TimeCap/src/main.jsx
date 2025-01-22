@@ -6,13 +6,16 @@ import Home from './Pages/Home';
 import Todo from './Pages/Todo';
 import Treasure from './Pages/Treasure';
 import Capsule from './Pages/Capsule';
-
+import Signup from './Pages/Signup';
+import MainWebsite from './Pages/MainWebsite';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path='/to-do' element={<Todo />} />
+        <Route path='/main' element={<MainWebsite />} />
         <Route path='/treasure' element={<Treasure />} />
         <Route path='/capsule' element={<Capsule />} />
       </Routes>
