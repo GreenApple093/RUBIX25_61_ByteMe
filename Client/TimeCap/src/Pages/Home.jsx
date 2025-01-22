@@ -1,42 +1,57 @@
-import graphic1 from '../assets/graphics/pic1.png';
-import bg1 from '../assets/graphics/bg1.png'; // Import the background image
-import RL from '../assets/graphics/RL.png';
-import LL from '../assets/graphics/LL.png';
-import bg2 from '../assets/graphics/bg2.png';
-import bg3 from '../assets/graphics/bg3.png';
-import groupPic from '../assets/graphics/group.png';
-import calendar from '../assets/graphics/calendar.png';
 
+import orange from '../assets/graphics/orange.png';
+import { Button } from '@/components/ui/button';
+import purple from '../assets/graphics/purple.png';
+import red from '../assets/graphics/red.png';
+import Navbar from '../components/Navbar';
 const Home = () => {
   return (
-    <div className="flex flex-col items-center font-poppins w-full">
-         <div 
-            className="flex flex-col items-center text-center mt-[5%] bg-[#F6F6F6] w-full pt-10 py-20"
-            
-            >
-            <img src={graphic1} className='w-[60px]' alt="Graphic" />
-            <p className="text-5xl">Capture Moments Now,<br/><span className="font-lobster text-5xl text-[#FB612D]">Cherish Them Later.</span></p>
-            <p className="mt-3">A timeless way to treasure your memories.</p>
-            <button className="bg-white p-3 mt-5 w-[250px] rounded-3xl border shadow-md transition-all duration-300 ease-in-out hover:bg-[#FB612D] hover:text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                Create your capsule
-            </button>
-            <div className='flex gap-16 mt-16'>
-                <div className='w-[300px] h-[250px] bg-gray-300 rounded-3xl'>
-                    <div className='mt-4 text-2xl'>Add <span className="font-lobster ">Memories</span></div>
-                </div>
-                <div className='w-[300px] h-[250px] bg-[#A2D2DF] rounded-3xl flex flex-col gap-2 items-center'>
-                    <div className='mt-4 text-2xl'>Add <span className="font-lobster ">Goals</span></div>
-                    <img src={calendar} className='w-[200px]'/>
-                </div>
-                <div className='w-[300px] h-[250px] bg-[#A1D6B2] rounded-3xl relative'>
-                    <div className='mt-4 text-2xl'>Add <span className="font-lobster ">Treasure</span></div>
-                    <img src={groupPic} className='absolute top-5 left-8'/>
-                </div>
-        </div>
-    </div>
+    <div>
+      <Navbar />
+      <div className="flex flex-col items-center font-poppins w-full absolute top-0 left-0 z-0">
+      <div
+        className="flex flex-col items-center text-center mt-[5%]  w-full pt-0 py-20" style={{ fontFamily: 'Lora' }}>
 
-    
+        <h1 className='text-7xl font-semibold text-black z-10 mb-5'>
+          Capture Moments Now,
+        </h1>
+        <h1
+          className="text-6xl font-bold bg-gradient-to-b from-[#fe414189] via-[#fc4d4dfe] to-[#900404] text-transparent bg-clip-text"
+        >
+          Treasure Them Later.
+        </h1>
+        <div>
+        <div className='flex gap-16 mt-16  bottom-[150px] text-white' style={{fontFamily:"Poppins"}}>
+          <img src={orange} className='h-44 w-44 z-0 relative bottom-[300px] left-[850px]' alt="" />
+          <img src={purple} className='h-44 w-44 z-0 relative bottom-[200px] right-[650px]' alt="" />
+          <img src={red} className='h-44 w-44 z-0 relative top-[100px] left-[400px]' alt="" />
+        </div>
+        </div>
+        <p className="mt-0 text-3xl font-extralight relative bottom-[200px]">"A timeless way to treasure your memories."</p>
+        <Button
+          className="bg-gradient-to-r from-pink-500 to-orange-500 text-white font-semibold p-2 mt-5 rounded-xl border-none shadow-2xl transition-transform duration-300 ease-in-out shadow-orange-400 hover:from-orange-500 hover:to-pink-500 hover:scale-105 focus:ring-4 focus:ring-pink-300 focus:ring-offset-2 h-[60px] w-[300px] text-xl relative bottom-[150px]" style={{ fontFamily: 'Poppins' }}
+        >
+          Create your capsule
+        </Button>
+
+
+        <div className='flex gap-16 mt-16 relative bottom-[175px] text-white' style={{fontFamily:"Poppins"}}>
+          <div className='w-[400px] h-[250px] bg-[#fd262db7] rounded-3xl shadow-xl shadow-orange-400 border-2 border-yellow-300'>
+            <div className='mt-4 text-2xl' >Add <span className=" ">Memories</span></div>
+          </div>
+          <div className='w-[400px] h-[250px] bg-[#292ff0] rounded-3xl flex flex-col gap-2 items-center shadow-lg shadow-purple-700 border-2 border-orange-300'>
+            <div className='mt-4 text-2xl'>Add <span className=" ">Goals</span></div>
+          </div>
+          <div className='w-[400px] h-[250px] bg-[#2dfb6e] rounded-3xl relative shadow-xl shadow-green-400 border-2 border-pink-300'>
+            <div className='mt-4 text-2xl'>Add <span className=" ">Treasure</span></div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
+    </div>
+    
   );
 };
 
