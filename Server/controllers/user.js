@@ -416,5 +416,59 @@ const getAllTimeCapsules = async (req, res) => {
   }
 };
 
+const treasureimageadd = async (req, res) => {
+  const userId = req.user._id; // Extract user ID from decoded JWT
+  const {title , tag } = req.body; // Extract thoughts and unveil date from form-data
+  // console.log(req.body);
+  
+  try {
+    // Validate required fields
+    if (!title || !tag) {
+      return res.status(400).json({ message: 'Title and tag are required.' });
+    }
+    
+  
+  
+    // Ensure a file is uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded.' });
+    }
 
-module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules};
+    // Determine file type (image or audio)
+    const fileType = req.file.mimetype.startsWith('audio') ? 'audio' : 'image';
+
+    // Create a unique folder for the user in Cloudinary using their user ID
+    const folderName = `chest_items/${userId}`;
+
+    // Upload the file to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: folderName, // Store in the user's unique folder
+      resource_type: fileType === 'audio' ? 'video' : 'image', // Use 'video' for audio uploads
+    });
+
+    // Delete the local file after uploading to Cloudinary
+    fs.unlinkSync(req.file.path);
+
+    // Create a new Time Capsule in the database
+    const TreasureChest = new Treasure({
+      user: userId,
+      title,
+      tag,
+      media: [result.secure_url], // Store uploaded file URL
+      
+    });
+
+    await TreasureChest.save();
+
+    // Return the created time capsule
+    res.status(201).json({
+      message: ' created successfully.',
+      TreasureChest,
+    });
+  } catch (error) {
+    console.error('Error adding image:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd};
