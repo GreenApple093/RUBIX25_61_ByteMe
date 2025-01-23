@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards, Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
+import { useNavigate } from 'react-router-dom';
 
 const slides = [
   { title: "Rock On!", image: "/images/p8.jpeg" },
@@ -21,6 +22,8 @@ const slides = [
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <Navbar />
@@ -41,6 +44,7 @@ const Home = () => {
           <Button
             className="bg-gradient-to-r from-pink-500 to-orange-500 text-white font-semibold py-3 px-6 mt-5 rounded-full shadow-lg transition-transform duration-300 hover:scale-105 w-[300px] text-lg h-[60px]"
             style={{ fontFamily: 'Poppins' }}
+            onClick={() => navigate('/capsule')}
           >
             Create Your Capsule
           </Button>
