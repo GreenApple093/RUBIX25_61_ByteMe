@@ -61,24 +61,24 @@ const CreateCapsuleForm = () => {
 
 
   return (
-    <div className="h-[85vh] mt-10 flex flex-col items-center justify-center bg-gray-50 rounded-2xl">
+    <div className="h-[85vh] mt-10 flex flex-col items-center justify-center rounded-2xl">
       <h1 className="text-4xl font-bold mb-5 text-center">Create Your Capsule</h1>
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-2xl flex flex-col gap-6"
+        className="p-8 w-[90%] max-w-2xl flex flex-col gap-6"
       >
         {/* Text Input */}
         <textarea
           value={text}
           onChange={handleTextChange}
           placeholder="Write your thoughts..."
-          className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          className="bg-transparent w-full p-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           rows="4"
         ></textarea>
 
         {/* File Upload (Image or Audio) */}
         <div
-          className="border-2 border-dashed border-gray-300 p-6 rounded-lg text-center cursor-pointer hover:border-blue-500"
+          className="border-2 border-dashed border-gray-400 p-6 rounded-lg text-center cursor-pointer hover:border-blue-500"
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
         >
@@ -105,7 +105,7 @@ const CreateCapsuleForm = () => {
             id="unveilDate"
             value={unveilDate}
             onChange={handleDateChange}
-            className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="bg-transparent w-full p-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
         </div>
 

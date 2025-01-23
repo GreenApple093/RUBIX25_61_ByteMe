@@ -70,10 +70,10 @@ const Capsule = () => {
       className="relative min-h-screen">
       <Navbar />
       {/* Centered content */}
-      <div className="relative flex flex-col items-center justify-center h-screen z-10">
+      <div className="relative flex flex-col items-center justify-center h-screen z-10 mt-16">
         <div className="flex gap-10 w-[80%] bg-opacity-90 p-5 rounded-lg items-center">
           {/* Left block */}
-          <div className="flex flex-col gap-5 p-5 rounded-lg shadow-md justify-center h-[400px] w-1/2">
+          <div className="flex flex-col gap-5 p-5 rounded-lg shadow-md justify-center h-[620px] w-1/2">
             <p className="text-5xl font-semibold text-ledt leading-relaxed">
               Upcoming
               <br />
@@ -86,7 +86,7 @@ const Capsule = () => {
             </p>
           </div>
           {/* Right block */}
-          <div className="flex flex-col gap-5 p-5 rounded-lg shadow-md w-1/2">
+          <div className="flex flex-col gap-5 p-5 py-10 rounded-lg shadow-md w-1/2">
             <CreateCapsuleForm />
           </div>
         </div>
