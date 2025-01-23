@@ -6,7 +6,7 @@ const upload = require('../middlewares/multer');
 const {getAllBlogsByAuthor , createBlog , deleteBlog } = require('../controllers/blog');
 
 
-router.get('/login', Verifyuser);
+router.post('/login', Verifyuser);
 router.get('/allaudio', authmiddleware,getAllUserAudio);
 router.get('/allimage',authmiddleware, getAllUserImages);
 router.post('/signup', AddUser);

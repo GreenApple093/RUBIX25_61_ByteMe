@@ -51,7 +51,9 @@ async function Verifyuser(req, res) {
   try {
     // Find the user by email
     const user = await User.findOne({ email });
-
+    console.log(user);
+    console.log("backend email :",email);
+    
     if (!user) {
       return res.status(404).json({ message: 'User not found. Please sign up.' });
     }
@@ -68,6 +70,7 @@ async function Verifyuser(req, res) {
       { email: user.email, _id: user._id ,
         profileImageUrl: user.profileImageUrl,
         name: user.name,
+        
       }, // Payload with email and user ID for security
       JWT_SECRET,                          // Secret key from environment variables
       { expiresIn: '1000h' }              // Token expiration time

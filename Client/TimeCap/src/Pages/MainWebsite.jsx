@@ -4,20 +4,13 @@ import { Button } from "@/components/ui/Button";
 import orange from "../assets/graphics/orange.png";
 import purple from "../assets/graphics/purple.png";
 import red from "../assets/graphics/red.png";
-import { fetchUserName } from "../utils/firebaseUtils.js"; // Adjust the path accordingly
+
 
 const MainWebsite = () => {
   const [userName, setUserName] = useState(""); // State to store user's name
   const [loading, setLoading] = useState(true); // State for loading
 
-  useEffect(() => {
-    const getUserName = async () => {
-      const name = await fetchUserName(); // Fetch the name
-      setUserName(name);
-      setLoading(false); // Stop loading
-    };
-    getUserName();
-  }, []);
+  
 
   return (
     <div>
@@ -29,7 +22,7 @@ const MainWebsite = () => {
         {/* Welcome Section */}
         <div className="flex flex-col items-center text-center mt-20 pt-10 pb-20 w-full">
           <h1 className="text-5xl font-bold text-black mb-4">
-            Welcome Back, {loading ? "Loading..." : userName}!
+            Welcome Back, 
           </h1>
           <p className="text-lg font-light text-gray-600 mb-8">
             Explore your personal capsule, set goals, and collaborate with friends.

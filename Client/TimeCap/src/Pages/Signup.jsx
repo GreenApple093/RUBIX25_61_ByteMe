@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, database } from '../firebase'; // Ensure this points to your firebase.js
-import { collection, addDoc } from 'firebase/firestore'; // Firestore methods
-import GoogleLogin from '../components/GoogleLogin';
-import { data } from 'react-router-dom';
-
-async function addUser(name, email) {
-    try {
-        const docRef = await addDoc(collection(database, 'User123'), {
-            name: name,
-            email: email,
-            createdAt: new Date().toISOString(),
-        });
-        console.log('User added to Firestore with ID: ', docRef.id);
-    } catch (e) {
-        console.error('Error adding user to Firestore: ', e);
-    }
-}
-
+import { FcGoogle } from 'react-icons/fc';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const SignIn_SignUp = () => {
-    const [isSignUp, setIsSignUp] = useState(true);
+    const [isSignUp, setIsSignUp] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-
+    const navigate = useNavigate();
     const toggleForm = () => {
         setIsSignUp(!isSignUp);
         setError('');
+        // Clear form fields when toggling
+        setName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
     };
+
+    const handleGoogleSignIn = async () => {
+        setError('');
+        try {
+            window.location.href = ("http://localhost:3300/auth/google");
+            
+        } catch (err) {
+            console.error('Error during Google sign in:', err.message);
+            setError(err.message);
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,6 +37,7 @@ const SignIn_SignUp = () => {
 
         try {
             if (isSignUp) {
+                // Sign Up validation
                 if (!name || !email || !password || !confirmPassword) {
                     setError('All fields are required.');
                     return;
@@ -47,27 +48,45 @@ const SignIn_SignUp = () => {
                     return;
                 }
 
-                // Register user
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+                // Sign up request
+                const response = await axios.post("http://localhost:3300/User/signup", {
+                    name,
+                    email,
+                    password
+                });
 
-                // Add user to Firestore
-                await addUser(name, email);
-
-                alert('User signed up and added to Firestore successfully!');
+                console.log('Sign up successful:', response.data);
+                // Clear form after successful signup
+                setName('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+                // Optionally switch to login form
+                setIsSignUp(false);
             } else {
+                // Sign In validation
                 if (!email || !password) {
                     setError('Email and password are required.');
                     return;
                 }
 
-                // Sign in user
-                await signInWithEmailAndPassword(auth, email, password);
-                alert('User signed in successfully!');
+                // Sign in request
+                const response = await axios.post("http://localhost:3300/User/login", {
+                    email,
+                    password
+                });
+
+                console.log('Login successful:', response.data);
+                // Clear form after successful login
+                setEmail('');
+                setPassword('');
+                // Optionally redirect to another page
+                navigate('/main');
+                // Handle successful login (e.g., store token, redirect)
             }
         } catch (err) {
-            console.error('Error during authentication:', err.message);
-            setError(err.message);
+            console.error('Error during authentication:', err);
+            setError(err.response?.data?.message || 'Authentication failed. Please try again.');
         }
     };
 
@@ -154,8 +173,14 @@ const SignIn_SignUp = () => {
                     <span className="mx-4 text-gray-500">{isSignUp ? 'Or Register with' : 'Or Login with'}</span>
                     <div className="flex-grow border-t border-gray-400"></div>
                 </div>
-                <div className="text-center text-4xl my-2">
-                    <GoogleLogin />
+                <div className="text-center text-4xl my-2 flex items-center justify-center">
+                    <button 
+                        className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500" 
+                        type="button" 
+                        onClick={handleGoogleSignIn}
+                    >
+                        <FcGoogle className="inline-block" />
+                    </button>
                 </div>
                 {isSignUp && (
                     <div className="text-center text-sm text-gray-500">

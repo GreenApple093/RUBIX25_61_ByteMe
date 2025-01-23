@@ -22,7 +22,7 @@ const logout = (req, res) => {
 const callback = (req, res) => {
     console.log('Called auth/google/callback');
     
-    const token = req.user.token; // Extract the JWT token
+    const token = req.user.token;
     res.status(200).json({
         message: 'Authentication successful',
         token, // Send the token in the response

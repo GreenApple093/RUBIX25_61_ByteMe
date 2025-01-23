@@ -9,6 +9,7 @@ const passport = require('passport');
 const session = require('express-session');
 const configureGoogleStrategy = require('./config/passport-google.js');
 const googleAuthRoute = require('./routes/google.js');
+const cors = require('cors');
  // Adjust the path as needed
 //CLUSTER ON 1 PROJECT
 const app = express();
@@ -20,7 +21,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(cors());
 // Configure Google Strategy
 configureGoogleStrategy(passport);
 
@@ -50,5 +51,5 @@ app.use("/User" , userRouter);
 
 //launching the server
 app.listen(3300, () => {
-  console.log('Server is running on port 3000');
+  console.log('Server is running on port 3300');
 });

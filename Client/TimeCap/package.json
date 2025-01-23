@@ -16,6 +16,7 @@
     "@schedule-x/events-service": "^2.14.3",
     "@schedule-x/react": "^2.13.3",
     "@schedule-x/theme-default": "^2.14.3",
+    "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",

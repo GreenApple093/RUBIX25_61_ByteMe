@@ -10,7 +10,8 @@ const router = express.Router();
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'select_account' }));
 
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), googleAuthController.callback);
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/', successRedirect: 'http://localhost:3000/main' // Redirect to your frontend dashboard 
+}), googleAuthController.callback);
 
 router.get('/profile', authmiddleware.passAuthUser, googleAuthController.profile);
 

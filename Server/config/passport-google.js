@@ -11,7 +11,7 @@ const configureGoogleStrategy = (passport) => {
         new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENTID,
             clientSecret: process.env.GOOGLE_CLIENTSECRET,
-            callbackURL: 'http://localhost:3000/auth/google/callback',
+            callbackURL: 'http://localhost:3300/auth/google/callback',
         }, async (accessToken, refreshToken, profile, done) => {
             try {
                 const email = profile.emails[0].value;
