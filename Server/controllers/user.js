@@ -389,16 +389,17 @@ const createTimeCapsule = async (req, res) => {
 };
 
 const getAllTimeCapsules = async (req, res) => {
-  const userId = req.user._id; // Extract user ID from JWT
+  const userId = (req.user._id); // Extract user ID from JWT
   console.log('User ID from JWT:', userId);
 
   try {
     // Convert userId to ObjectId if it's not already an ObjectId
-    const userObjectId = new mongoose.Types.ObjectId(userId);
-    console.log('Converted user ID to ObjectId:', userObjectId);
-
+    // const userObjectId = new mongoose.Types.ObjectId(userId);
+    console.log('Converted user ID to ObjectId:', userId);
+    console.log(TimeCapsule.findById(userId));
+    
     // Find all Time Capsules for the user
-    const timeCapsules = await TimeCapsule.find({ user: userObjectId });
+    const timeCapsules = await TimeCapsule.find({ user: req.user._id });
     console.log('Time Capsules:', timeCapsules);
 
     if (timeCapsules.length === 0) {
