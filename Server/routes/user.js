@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio , getAllUserAudio,getAllUserImages}= require("../controllers/user");
+const {AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio , getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules}= require("../controllers/user");
 const{authmiddleware} = require("../middlewares/auth");
 const upload = require('../middlewares/multer');
 const {getAllBlogsByAuthor , createBlog , deleteBlog } = require('../controllers/blog');
@@ -14,6 +14,6 @@ router.patch('/profilepic',authmiddleware,upload.single('profileImage'), updateU
 router.patch('/audio',authmiddleware,upload.single('audio'), uploadUserMedia);
 router.post('/deletepicture',authmiddleware, deleteUserProfilePicture);
 router.post('/deleteaudio',authmiddleware, deleteUserAudio);
-
+router.post('/createcapsule',authmiddleware,upload.single('file'), createTimeCapsule);
+router.get('/allcapsule',authmiddleware, getAllTimeCapsules);
 module.exports = router;
- 

@@ -6,8 +6,9 @@ const {sendmail} = require("../utils/nodemailer")
 const cloudinary = require("../utils/cloudnary");
 const fs = require('fs');
 const path = require('path')
-
-
+const TimeCapsule = require('../models/timeCapsule');
+const { log } = require("console");
+const mongoose = require('mongoose');
 
 
 env.config();
@@ -67,7 +68,8 @@ async function Verifyuser(req, res) {
 
     // Create a JWT token with the user's email and user ID
     const token = jwt.sign(
-      { email: user.email, _id: user._id ,
+      { email: user.email,
+        _id: user._id ,
         profileImageUrl: user.profileImageUrl,
         name: user.name,
         
@@ -327,5 +329,91 @@ async function getAllUserAudio(req, res) {
   }
 }
 
+const createTimeCapsule = async (req, res) => {
+  const userId = req.user._id; // Extract user ID from decoded JWT
+  const { thoughts, unveilDate } = req.body; // Extract thoughts and unveil date from form-data
+  // console.log(req.body);
+  
+  try {
+    // Validate required fields
+    if (!thoughts || !unveilDate) {
+      return res.status(400).json({ message: 'Thoughts and unveil date are required.' });
+    }
+    
+    
+    // Parse and validate the unveil date
+    const parsedDate = new Date(unveilDate);
+    if (isNaN(parsedDate)) {
+      return res.status(400).json({ message: 'Invalid unveil date format.' });
+    }
 
-module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages};
+    // Ensure a file is uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded.' });
+    }
+
+    // Determine file type (image or audio)
+    const fileType = req.file.mimetype.startsWith('audio') ? 'audio' : 'image';
+
+    // Create a unique folder for the user in Cloudinary using their user ID
+    const folderName = `time-capsules/${userId}`;
+
+    // Upload the file to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: folderName, // Store in the user's unique folder
+      resource_type: fileType === 'audio' ? 'video' : 'image', // Use 'video' for audio uploads
+    });
+
+    // Delete the local file after uploading to Cloudinary
+    fs.unlinkSync(req.file.path);
+
+    // Create a new Time Capsule in the database
+    const timeCapsule = new TimeCapsule({
+      user: userId,
+      thoughts,
+      media: [result.secure_url], // Store uploaded file URL
+      unveilDate: parsedDate,
+    });
+
+    await timeCapsule.save();
+
+    // Return the created time capsule
+    res.status(201).json({
+      message: 'Time Capsule created successfully.',
+      timeCapsule,
+    });
+  } catch (error) {
+    console.error('Error creating time capsule:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+const getAllTimeCapsules = async (req, res) => {
+  const userId = req.user._id; // Extract user ID from JWT
+  console.log('User ID from JWT:', userId);
+
+  try {
+    // Convert userId to ObjectId if it's not already an ObjectId
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+    console.log('Converted user ID to ObjectId:', userObjectId);
+
+    // Find all Time Capsules for the user
+    const timeCapsules = await TimeCapsule.find({ user: userObjectId });
+    console.log('Time Capsules:', timeCapsules);
+
+    if (timeCapsules.length === 0) {
+      return res.status(404).json({ message: 'No Time Capsules found.' });
+    }
+
+    res.status(200).json({
+      message: 'Time Capsules retrieved successfully.',
+      timeCapsules,
+    });
+  } catch (error) {
+    console.error('Error fetching time capsules:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
+module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules};

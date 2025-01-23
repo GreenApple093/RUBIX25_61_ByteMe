@@ -21,14 +21,16 @@ async function authmiddleware(req, res, next) {
 
     // Verify the token
     const decoded = jwt.verify(token, JWT_SECRET);
-
+    console.log(decoded);
+    
     if (!decoded) {
       return res.status(401).json({ message: 'Invalid token' });
     }
 
     // Attach the decoded token to req.user for further use
     req.user = decoded;
-
+    console.log("**********",req.user);
+    
     // Proceed to the next middleware or route handler
     next();
   } catch (error) {
