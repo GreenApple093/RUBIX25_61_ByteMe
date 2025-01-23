@@ -499,5 +499,32 @@ const getAllChestImages = async (req, res) => {
   }
 };
 
+const deleteChestImage = async (req, res) => {
+  const { imageId } = req.params; // Get the image ID from the route parameters
 
-module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd,getAllChestImages};
+  try {
+    // Check if imageId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(imageId)) {
+      return res.status(400).json({ message: 'Invalid image ID.' });
+    }
+
+    // Attempt to delete the image
+    const deletedImage = await Treasure.findByIdAndDelete(imageId);
+
+    // Check if the image was found and deleted
+    if (!deletedImage) {
+      return res.status(404).json({ message: 'Image not found.' });
+    }
+
+    res.status(200).json({
+      message: 'Image deleted successfully.',
+      image: deletedImage, // Optional: Return details of the deleted image
+    });
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
+module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd,getAllChestImages,deleteChestImage};
