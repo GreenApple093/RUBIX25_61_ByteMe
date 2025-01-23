@@ -15,7 +15,7 @@ const TreasureSchema = new mongoose.Schema({
         default: [],
     },
     tag: {
-        type: string,
+        type: String,
         required: true,
     }
 });

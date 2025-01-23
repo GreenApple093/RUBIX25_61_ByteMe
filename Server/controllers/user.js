@@ -9,7 +9,7 @@ const path = require('path')
 const TimeCapsule = require('../models/timeCapsule');
 const { log } = require("console");
 const mongoose = require('mongoose');
-
+const Treasure = require('../models/treasureChest');
 
 env.config();
 const Salt = process.env.Salt; 
