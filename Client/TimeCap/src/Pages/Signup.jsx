@@ -77,6 +77,9 @@ const SignIn_SignUp = () => {
                 });
 
                 console.log('Login successful:', response.data);
+                let token = response.data.token;
+                console.log(token)
+                localStorage.setItem("token"  , token);
                 // Clear form after successful login
                 setEmail('');
                 setPassword('');

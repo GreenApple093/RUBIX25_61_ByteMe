@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const CreateCapsuleForm = () => {
   const [text, setText] = useState('');
@@ -24,13 +25,40 @@ const CreateCapsuleForm = () => {
 
   const handleDateChange = (e) => setUnveilDate(e.target.value);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Text:', text);
-    console.log('File:', file);
-    console.log('Unveil Date:', unveilDate);
-    alert('Capsule created successfully!');
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      if (!text || !file || !unveilDate) {
+          alert("All fields are required!");
+          return;
+      }
+
+      const formData = new FormData();
+      formData.append("thoughts", text);
+      formData.append("file", file);
+      formData.append("unveilDate", unveilDate);
+
+      try {
+          const response = await axios.post(
+              "http://localhost:3300/User/createcapsule", // Replace with your backend URL
+              formData,
+              {
+                  headers: {
+                      "Content-Type": "multipart/form-data",
+                      Authorization: `bearer ${localStorage.getItem("token")}`, // Include the token if required
+                  },
+              }
+          );
+
+          console.log("Response:", response.data);
+          console.log(localStorage.getItem("token"));
+          alert("Capsule created successfully!");
+      } catch (error) {
+          console.error("Error creating capsule:", error.response || error.message);
+          alert(error.response?.data?.message || "Something went wrong!");
+      }
   };
+
 
   return (
     <div className="h-[85vh] mt-10 flex flex-col items-center justify-center bg-gray-50 rounded-2xl">
