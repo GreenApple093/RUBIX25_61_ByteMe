@@ -102,8 +102,13 @@ const Chest = () => {
     <>
       <Navbar/>
       <div 
-    className="bg-gradient-to-r from-red-950 to-black py-20 text-white flex items-center justify-center"
-    style={{backgroundImage: "url('./images/wood.png')"}}     
+    className="bg-gradient-to-r from-red-950 to-black py-20 text-black flex items-center justify-center"
+    style={{
+      backgroundImage: "url('./images/bg2.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat"
+    }}   
     >
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-5xl font-bold text-center mb-8 animate__animated animate__fadeIn">

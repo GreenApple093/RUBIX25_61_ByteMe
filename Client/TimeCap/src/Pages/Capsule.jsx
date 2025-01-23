@@ -4,19 +4,15 @@ import CreateCapsuleForm from '../components/CreateCapsuleForm';
 
 const Capsule = () => {
   return (
-    <div className="relative min-h-screen">
+    <div 
+    style={{
+      backgroundImage: "url('./images/bg.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat"
+    }}
+      className="relative min-h-screen">
       <Navbar />
-      {/* Left and right tinted images */}
-      <img
-        src="./images/tingeL.png"
-        alt="Left decorative tinge"
-        className="absolute left-0 w-[40%] h-full top-0 object-cover z-0"
-      />
-      <img
-        src="./images/tingeR.png"
-        alt="Right decorative tinge"
-        className="absolute right-0 w-[40%] h-full top-0 object-cover z-0"
-      />
       {/* Centered content */}
       <div className="relative flex flex-col items-center justify-center h-screen z-10">
         <div className="flex gap-10 w-[80%] bg-opacity-90 p-5 rounded-lg items-center">
