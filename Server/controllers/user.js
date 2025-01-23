@@ -471,4 +471,33 @@ const treasureimageadd = async (req, res) => {
   }
 };
 
-module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd};
+const getAllChestImages = async (req, res) => {
+  const userId = (req.user._id); // Extract user ID from JWT
+  console.log('User ID from JWT:', userId);
+
+  try {
+    // Convert userId to ObjectId if it's not already an ObjectId
+    // const userObjectId = new mongoose.Types.ObjectId(userId);
+    console.log('Converted user ID to ObjectId:', userId);
+    console.log(Treasure.findById(userId));
+    
+    // Find all Time Capsules for the user
+    const treasureimages = await Treasure.find({ user: req.user._id });
+    console.log('treasure images:', treasureimages);
+
+    if (treasureimages.length === 0) {
+      return res.status(404).json({ message: 'Noimages found.' });
+    }
+
+    res.status(200).json({
+      message: 'images retrieved successfully.',
+      treasureimages,
+    });
+  } catch (error) {
+    console.error('Error images loading:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
+module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd,getAllChestImages};
