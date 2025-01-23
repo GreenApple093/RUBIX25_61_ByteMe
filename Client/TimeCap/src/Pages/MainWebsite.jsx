@@ -97,14 +97,6 @@ const MainWebsite = () => {
             </div>
           </div>
         </div>
-
-        {/* Call to Action */}
-        <div className="flex flex-col items-center text-center py-20 w-full bg-gradient-to-t from-[#f8f9fa] to-[#ffe6e6]">
-          <h2 className="text-4xl font-bold text-black mb-6">Ready to Explore More?</h2>
-          <Button className="bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-transform duration-300 hover:scale-105 w-[300px] text-lg h-[60px]">
-            Start Now
-          </Button>
-        </div>
       </div>
     </div>
   );

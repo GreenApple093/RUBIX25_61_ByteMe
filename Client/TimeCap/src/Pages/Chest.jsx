@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css"; // Import Swiper styles
 import { useDropzone } from "react-dropzone"; // Import react-dropzone
 import deleteIcon from '../assets/graphics/delete.png';
+import Navbar from "../components/Navbar";
 
 const Chest = () => {
   const [slides, setSlides] = useState([
@@ -98,7 +99,9 @@ const Chest = () => {
   });
 
   return (
-    <div 
+    <>
+      <Navbar/>
+      <div 
     className="bg-gradient-to-r from-red-950 to-black py-20 text-white flex items-center justify-center"
     style={{backgroundImage: "url('./images/wood.png')"}}     
     >
@@ -196,6 +199,7 @@ const Chest = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
