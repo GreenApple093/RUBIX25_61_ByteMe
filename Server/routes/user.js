@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio , getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd, deleteChestImage}= require("../controllers/user");
+const {AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio , getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd, deleteChestImage,getAllChestImages}= require("../controllers/user");
 const{authmiddleware} = require("../middlewares/auth");
 const upload = require('../middlewares/multer');
 const {getAllBlogsByAuthor , createBlog , deleteBlog } = require('../controllers/blog');
@@ -16,6 +16,7 @@ router.post('/deletepicture',authmiddleware, deleteUserProfilePicture);
 router.post('/deleteaudio',authmiddleware, deleteUserAudio);
 router.post('/createcapsule',authmiddleware,upload.single('file'), createTimeCapsule);
 router.get('/allcapsule',authmiddleware, getAllTimeCapsules);
-router.post('/addImage',authmiddleware,upload.single('file'), treasureimageadd)
+router.post('/addImage',authmiddleware,upload.single('image'), treasureimageadd)
+router.get('/alltreasure',authmiddleware,getAllChestImages);
 router.delete('/deleteImage',authmiddleware,deleteChestImage);
 module.exports = router;
