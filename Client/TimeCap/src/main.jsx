@@ -8,6 +8,8 @@ import Treasure from './Pages/Treasure';
 import Capsule from './Pages/Capsule';
 import Signup from './Pages/Signup';
 import MainWebsite from './Pages/MainWebsite';
+import Chest from './Pages/Chest';
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
@@ -18,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/main' element={<MainWebsite />} />
         <Route path='/treasure' element={<Treasure />} />
         <Route path='/capsule' element={<Capsule />} />
+        <Route path='/chest' element={<Chest />} />
       </Routes>
     </Router>
   </React.StrictMode>
