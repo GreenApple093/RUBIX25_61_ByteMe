@@ -41,8 +41,10 @@ const Notepad = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-gradient-to-b from-[#f8f9fa] to-[#ffe6e6] rounded-lg shadow-lg">
-      <h1 className="text-4xl font-bold text-center text-orange-500 mb-6 font-poppins">Task Notepad</h1>
+    <div className="max-w-2xl mx-auto p-8 rounded-lg shadow-lg mt-20">
+      <h1 className="text-4xl font-bold text-center text-orange-500 mb-6 font-poppins">
+        <span className='text-black'>Task</span> Notepad
+      </h1>
       
       <div className="mb-6">
         <input
