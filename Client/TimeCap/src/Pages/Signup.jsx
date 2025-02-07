@@ -24,7 +24,16 @@ const SignIn_SignUp = () => {
         setError('');
         try {
             window.location.href = ("http://localhost:3300/auth/google");
-            
+            console.log();
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get("token");
+
+            if (token) {
+                localStorage.setItem("token", token); // Store token for future API requests
+                console.log("🔥 Token received:", token);
+            } else {
+                console.error("❌ No token found in URL!");
+            }
         } catch (err) {
             console.error('Error during Google sign in:', err.message);
             setError(err.message);
@@ -79,7 +88,7 @@ const SignIn_SignUp = () => {
                 console.log('Login successful:', response.data);
                 let token = response.data.token;
                 console.log(token)
-                localStorage.setItem("token"  , token);
+                localStorage.setItem("token", token);
                 // Clear form after successful login
                 setEmail('');
                 setPassword('');
@@ -177,9 +186,9 @@ const SignIn_SignUp = () => {
                     <div className="flex-grow border-t border-gray-400"></div>
                 </div>
                 <div className="text-center text-4xl my-2 flex items-center justify-center">
-                    <button 
-                        className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500" 
-                        type="button" 
+                    <button
+                        className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                        type="button"
                         onClick={handleGoogleSignIn}
                     >
                         <FcGoogle className="inline-block" />

@@ -526,5 +526,18 @@ const deleteChestImage = async (req, res) => {
   }
 };
 
+const getUserName = async (req, res) => {
+  try {
+    const userId = req.user._id; // Extract user ID from decoded JWT
+    const {name} = req.body;
+    console.log(name);
+    
+    return res.status(201).json(name)
+  } catch (error) {
+    console.log("error: ",error);
+    
+  }
+}
 
-module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd,getAllChestImages,deleteChestImage};
+
+module.exports = { AddUser , Verifyuser , updateUserProfilePictures , uploadUserMedia , deleteUserProfilePicture, deleteUserAudio,getAllUserAudio,getAllUserImages,createTimeCapsule,getAllTimeCapsules,treasureimageadd,getAllChestImages,deleteChestImage,getUserName};

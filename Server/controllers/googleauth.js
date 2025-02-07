@@ -19,7 +19,7 @@ const logout = (req, res) => {
     res.cookie('accessToken', token, { httpOnly: true, secure: false }); // Store in a cookie
     res.redirect('/profile');
 };*/
-const callback = (req, res) => {
+const callback = async (req, res) => {
     console.log('Called auth/google/callback');
     
     const token = req.user.token;

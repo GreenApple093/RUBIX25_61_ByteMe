@@ -12,6 +12,7 @@ const configureGoogleStrategy = (passport) => {
             clientID: process.env.GOOGLE_CLIENTID,
             clientSecret: process.env.GOOGLE_CLIENTSECRET,
             callbackURL: 'http://localhost:3300/auth/google/callback',
+
         }, async (accessToken, refreshToken, profile, done) => {
             try {
                 const email = profile.emails[0].value;
@@ -30,9 +31,9 @@ const configureGoogleStrategy = (passport) => {
                     });
                     await user.save();
                 }
-
+                
                 // Generate JWT token
-                const token = jwt.sign({ _id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+                const token = jwt.sign({ _id: user._id, email: user.email, name : user.name }, JWT_SECRET, { expiresIn: '7d' });
                 
                 // Attach token to user object
                 const userWithToken = {
@@ -48,15 +49,20 @@ const configureGoogleStrategy = (passport) => {
         })
     );
 
-    passport.serializeUser((user, done) => done(null, user._id));
-    passport.deserializeUser(async (id, done) => {
+    passport.serializeUser((user, done) => {
+        done(null, { id: user._id, token: user.token }); // Include token
+    });
+    
+    passport.deserializeUser(async (obj, done) => {
         try {
-            const user = await User.findById(id);
-            done(null, user);
+            const user = await User.findById(obj.id);
+            if (!user) return done(null, false);
+            done(null, { ...user.toObject(), token: obj.token }); // Restore token
         } catch (err) {
             done(err, null);
         }
     });
+    
 };
 
 module.exports = configureGoogleStrategy;
